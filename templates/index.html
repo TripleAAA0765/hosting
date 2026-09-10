@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}TripleAAA Games | Juego{% endblock %}
+
+{% block content %}
+<section class="game-section" id="game">
+    <div class="container game-shell">
+        <div class="game-topbar">
+            <div class="game-title-wrap">
+                <span class="section-tag">TripleAAA Games</span>
+                <h1>Buscaminas</h1>
+            </div>
+            <div class="game-toolbar">
+                <div class="level-switch">
+                    <button class="level-modes active" data-level="beginner">Fácil</button>
+                    <button class="level-modes" data-level="intermediate">Medio</button>
+                    <button class="level-modes" data-level="expert">Difícil</button>
+                </div>
+                <button class="btn btn-primary" id="restartBtn">Reiniciar</button>
+            </div>
+        </div>
+
+        <div class="game-layout">
+            <aside class="game-sidebar">
+                <div class="score-card">
+                    <div class="score-row">
+                        <span class="score-label">Nivel</span>
+                        <span class="level-badge" id="selectedLevel">Fácil</span>
+                    </div>
+
+                    <div class="score-grid">
+                        <div class="score-box">
+                            <span class="score-label">Minas</span>
+                            <span class="score-number" id="mineCount">10</span>
+                        </div>
+                        <div class="score-box">
+                            <span class="score-label">Tiempo</span>
+                            <span class="score-number"><span id="timer">000</span>s</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="board-wrap">
+                <div class="board-frame">
+                    <div class="board-head">
+                        <span class="board-title">Tablero</span>
+                        <span class="board-status" id="gameStatus">Listo</span>
+                    </div>
+                    <div class="board-scroll">
+                        <div class="board" id="mineBoard"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="leaderboard-section">
+        <div class="leaderboard-grid">
+            <section class="leaderboard-panel">
+                <div class="leaderboard-header">
+                    <span class="leaderboard-title">Clasificación global de la semana</span>
+                </div>
+                <div class="leaderboard-list">
+                    {% if rankings_weekly %}
+                        {% for row in rankings_weekly %}
+                            <div class="leaderboard-row">
+                                <span class="leaderboard-name">{{ row.nombre }}</span>
+                                <span class="leaderboard-score">{{ row.puntaje }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="leaderboard-empty">Sin puntuaciones esta semana</div>
+                    {% endif %}
+                </div>
+            </section>
+
+            <section class="leaderboard-panel">
+                <div class="leaderboard-header">
+                    <span class="leaderboard-title">Top global</span>
+                </div>
+                <div class="leaderboard-list">
+                    {% if rankings_global %}
+                        {% for row in rankings_global %}
+                            <div class="leaderboard-row">
+                                <span class="leaderboard-name">{{ row.nombre }}</span>
+                                <span class="leaderboard-score">{{ row.puntaje }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="leaderboard-empty">Sin puntuaciones todavía</div>
+                    {% endif %}
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+{% endblock %}
